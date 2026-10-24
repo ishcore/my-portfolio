@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ishani — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Yellowtail&family=Gaegu:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c93631; --wine:#650207; --dark:#270202; --crimson:#8E020A;
+  --orange:#f06b04; --gold:#fbb728; --cream:#f5ecd2; --pale:#fbde9c;
+  --ink:#270202; --paper:#f5ecd2;
+  --apricot:#f7c767; --peach:#f39048; --coral:#E15E55; --brown:#562915;
+  --pink:#f7c767; --blush:#f5ecd2; --hot:#f06b04; --lilac:#f39048;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--cream);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+button,a{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.eyebrow{font-family:Gaegu,cursive;font-weight:700;letter-spacing:.06em;font-size:1.35rem;color:var(--pink)}
+/* Intro / Icarus scene */
+#hero{position:fixed;inset:0;z-index:20;overflow:hidden;display:grid;place-items:center;cursor:pointer;background:radial-gradient(ellipse at 50% 45%,var(--crimson),var(--wine) 45%,var(--dark) 100%);transition:transform 1.15s ease,opacity 1.15s ease}
+#hero.leave{transform:translateY(-105%);opacity:0;pointer-events:none}
+#sun{z-index:4;position:absolute;width:clamp(150px,24vw,300px);height:auto;left:7%;top:8%;object-fit:contain;filter:drop-shadow(0 0 26px var(--orange));animation:spin 32s linear infinite;pointer-events:none}
+#hero-title{font-family:"Cormorant Garamond",Georgia,serif;position:relative;z-index:2;text-align:center;font-size:clamp(4.5rem,14vw,11rem);line-height:.8;font-weight:500;letter-spacing:-.045em;text-transform:none;color:var(--cream);text-shadow:0 5px 0 var(--dark),0 0 30px #f06b0450;pointer-events:none}
+#hero-title span{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,26px);transform:none;text-shadow:none;font-family:Inter,sans-serif;font-weight:500;font-size:clamp(.62rem,1.25vw,.88rem);letter-spacing:.38em;text-transform:uppercase;margin-top:clamp(22px,3vw,38px);color:var(--apricot);white-space:nowrap}
+#hero-title span:before,#hero-title span:after{content:"";height:1px;width:clamp(36px,9vw,130px);background:linear-gradient(90deg,transparent,var(--gold))}
+#hero-title span:after{transform:scaleX(-1)}
+#icarus{z-index:4;position:absolute;width:clamp(180px,29vw,370px);height:auto;right:7%;bottom:4%;object-fit:contain;filter:drop-shadow(0 12px 14px #0007);animation:bob 4s ease-in-out infinite;pointer-events:none}
+#hero.fall #icarus{animation:fall 1.35s cubic-bezier(.55,.05,.9,.3) forwards}
+#hero-hint{position:absolute;bottom:5%;left:50%;transform:translateX(-50%);z-index:3;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--pale);white-space:nowrap;animation:pulse 2s infinite;pointer-events:none}
+/* Shared layout */
+.site{opacity:0;transition:opacity .8s ease}
+.site.visible{opacity:1}
+nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 6%;background:#270202ed;border-bottom:1px solid #fbde9c30;backdrop-filter:blur(12px)}
+.brand{font-family:Yellowtail,cursive;font-size:2.2rem;font-weight:400;letter-spacing:.01em;color:var(--pink);text-decoration:none}
+.navlinks{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.navlinks button{background:none;border:0;color:var(--cream);font-size:.78rem;opacity:.85}
+.navlinks button:hover{color:var(--hot);transform:rotate(-4deg) scale(1.1)}
+.navlinks button{transition:transform .2s,color .2s}
+main{display:block}
+section{scroll-margin-top:85px}
+.about{padding:100px 8% 95px;background:linear-gradient(160deg,#f5ecd2,#fbde9c 70%,#f7c767);color:var(--ink);position:relative;overflow:hidden}
+.about:after{content:"";position:absolute;width:330px;height:330px;border:2px solid #c9363150;border-radius:50%;right:-130px;top:-130px;box-shadow:0 0 0 25px #c9363112,0 0 0 55px #c9363112;pointer-events:none}
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center;max-width:1150px;margin:auto}
+.about h2{text-transform:uppercase;font:900 clamp(4rem,11.5vw,10rem)/.88 "Londrina Solid",cursive;letter-spacing:.01em;margin:18px 0 28px}
+.about h2 em{color:var(--red);text-transform:none;font-size:1.05em;font-family:Yellowtail,cursive;font-weight:400;display:inline-block;transform:rotate(-2deg);text-shadow:3px 3px 0 var(--apricot)}
+.about p{max-width:670px;line-height:1.55;font:600 1.35rem/1.5 "Cormorant Garamond",Georgia,serif;color:var(--brown)}.about p.eyebrow{font-family:Gaegu,cursive}
+.about .eyebrow{color:var(--red)}
+.about-art{min-height:320px;border:3px solid var(--wine);box-shadow:10px 10px 0 var(--red);display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;background:linear-gradient(145deg,#f7c767,#fbde9c 55%,#f39048);position:relative}
+.about-art:before{content:"";position:absolute;inset:14px;border:1px solid #65020745}
+.about-art>div{position:relative;max-width:300px}
+.about-art strong{display:block;font:400 clamp(2rem,3.2vw,2.8rem)/1.1 Yellowtail,cursive;color:var(--red);margin-bottom:14px}
+.about-art span{font-family:Gaegu,cursive;font-weight:700;font-size:1.2rem;color:var(--wine)}
+.section-wrap{padding:85px 8%;max-width:1400px;margin:auto}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:34px}
+.section-head h2{text-transform:uppercase;color:var(--blush);font:900 clamp(3.6rem,9.5vw,8rem)/.92 "Londrina Solid",cursive;letter-spacing:-.035em}
+.section-head p{max-width:400px;color:#f5ecd2a8;font-size:.88rem;line-height:1.7}
+.pathways{background:linear-gradient(180deg,var(--dark),#3a0303)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.path-card{position:relative;min-height:330px;text-align:left;border:2px solid #fbb72880;border-radius:22px;background:linear-gradient(150deg,#650207,#350202 80%);color:var(--cream);padding:28px;overflow:hidden;transition:transform .25s,border-color .25s}
+.path-card:hover{transform:translateY(-8px) rotate(-1.2deg);border-color:var(--hot);box-shadow:8px 8px 0 var(--hot)}
+.path-card:nth-child(2):hover{transform:translateY(-8px) rotate(1.2deg)}
+.card-number{font-family:Gaegu,cursive;font-weight:700;font-size:1.1rem;letter-spacing:.05em;color:var(--pink)}
+.path-card h3{text-transform:uppercase;color:var(--blush);font:900 clamp(2.8rem,4.2vw,4rem)/.95 "Londrina Solid",cursive;margin:36px 0 14px}
+.path-card p{font-size:.86rem;line-height:1.75;color:#f5ecd2c9;max-width:330px}
+.card-open{display:inline-block;margin-top:28px;color:var(--dark);background:var(--pink);padding:8px 15px;border-radius:99px;font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em}
+.card-sun{position:absolute;right:-25px;top:-28px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,var(--pink),var(--hot) 45%,transparent 70%);opacity:.3}
+.detail-page{display:none;min-height:75vh;padding:75px 8% 100px;background:linear-gradient(150deg,#3a0303,var(--dark) 65%)}
+.detail-page.active{display:block;animation:fadein .45s ease}
+.detail-inner{max-width:1120px;margin:auto}
+.back-button{border:2px solid var(--pink);border-radius:99px;color:var(--pink);background:transparent;padding:11px 15px;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:45px}
+.back-button:hover{background:var(--hot);border-color:var(--hot);color:var(--dark)}
+.detail-page h2{text-transform:uppercase;font:900 clamp(4rem,11.5vw,10rem)/.9 "Londrina Solid",cursive;color:var(--blush);text-shadow:5px 5px 0 var(--hot);margin:18px 0 28px;max-width:1000px}
+.detail-lead{font:500 1.45rem/1.55 "Cormorant Garamond",Georgia,serif;color:#f5ecd2d6;max-width:760px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:45px}
+.detail-panel{padding:26px;border:2px solid #fbb72855;border-radius:18px;background:#fbb7280a}
+.detail-panel h3{text-transform:uppercase;letter-spacing:.02em;font:900 2.4rem "Londrina Solid",cursive;color:var(--pink);margin-bottom:13px}
+.detail-panel p,.detail-panel li{font-size:.88rem;line-height:1.8;color:#f5ecd2c9}
+.detail-panel ul{padding-left:18px}
+.image-placeholder.has-img{padding:0;min-height:0;border-style:solid;overflow:hidden;display:block;background:var(--dark)}
+.image-placeholder.has-img img{display:block;width:100%;height:auto;transition:transform .4s}
+.image-placeholder.has-img:hover img{transform:scale(1.02)}
+.image-grid .image-placeholder.has-img img{height:100%;object-fit:cover}
+.image-placeholder{margin-top:22px;min-height:220px;border:2px dashed #fbb728a0;border-radius:18px;background:linear-gradient(135deg,#65020766,#f06b0410);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--pale)}
+.image-placeholder span{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.image-placeholder strong{font:900 1.8rem "Londrina Solid",cursive}
+.pdf-card{margin-top:22px;border:2px solid #fbb72855;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#65020766,#f06b0410)}
+.pdf-card header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #fbb72833}
+.pdf-card header span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--pale)}
+.pdf-card header strong{display:block;font:900 1.7rem "Londrina Solid",cursive;color:var(--blush);text-transform:uppercase;letter-spacing:.02em}
+.pdf-card header a{flex:none;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dark);background:var(--apricot);padding:8px 14px;border-radius:99px;text-decoration:none;cursor:pointer}
+.pdf-card header a:hover{background:var(--orange)}
+.pdf-card iframe{display:block;width:100%;height:560px;border:0;background:#f5ecd2}
+.pdf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
+.pdf-grid .pdf-card{margin:0}.pdf-grid iframe{height:420px}
+@media(max-width:800px){.pdf-grid{grid-template-columns:1fr}.pdf-card iframe{height:420px}}
+
+/* decorative inspiration images */
+.lead-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,330px);gap:36px;align-items:center;margin-bottom:8px}
+.deco{margin:0;border:3px solid var(--apricot);border-radius:18px;overflow:hidden;box-shadow:9px 9px 0 var(--red);transform:rotate(2deg);transition:transform .3s;background:var(--cream)}
+.deco:hover{transform:rotate(-1deg) scale(1.02)}
+.deco img{display:block;width:100%;height:auto}
+.deco.pinkart{transform:rotate(-2deg)}
+@media(max-width:800px){.lead-row{grid-template-columns:1fr}.deco{max-width:300px}}
+/* galleries */
+.gal-title{font:900 clamp(2.4rem,5vw,3.6rem)/1 "Londrina Solid",cursive;text-transform:uppercase;letter-spacing:.02em;color:var(--blush);margin:46px 0 6px}
+.gal-title em{font-family:Yellowtail,cursive;font-style:normal;font-weight:400;text-transform:none;color:var(--apricot);font-size:1.1em}
+.gal-sub{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pale);margin-bottom:16px}
+.slider{position:relative}
+.track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px 2px 14px;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.slide{position:relative;flex:0 0 clamp(210px,27%,300px);aspect-ratio:4/5;scroll-snap-align:start;padding:0;overflow:hidden;border:2px solid #fbb72866;border-radius:16px;background:linear-gradient(135deg,#650207aa,#f06b0418);color:var(--pale);transition:transform .25s,border-color .25s,box-shadow .25s}
+.slide:hover{transform:translateY(-6px) rotate(-1deg);border-color:var(--apricot);box-shadow:6px 6px 0 var(--orange)}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--dark)}
+.slide .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:14px;font-size:.7rem;letter-spacing:.12em}
+.slide .ph em{font:900 2.6rem/1 "Londrina Solid",cursive;font-style:normal;color:var(--apricot);letter-spacing:.02em}
+.slide.ok .ph{display:none}
+.arr{position:absolute;top:50%;translate:0 -60%;z-index:3;width:46px;height:46px;border-radius:50%;border:2px solid var(--dark);background:var(--apricot);color:var(--dark);font-size:1.5rem;line-height:1;display:grid;place-items:center;box-shadow:3px 3px 0 var(--dark);transition:.2s}
+.arr:hover{background:var(--orange);scale:1.1}
+.arr.l{left:-14px}.arr.r{right:-14px}
+.contrib{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.contrib .slide{flex:none;width:100%}
+.slider-dots{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.slider-dots i{width:7px;height:7px;border-radius:50%;background:#fbb72840;transition:.2s}
+.slider-dots i.on{background:var(--apricot);width:22px;border-radius:99px}
+@media(max-width:800px){.contrib{grid-template-columns:1fr 1fr}.arr{display:none}.slide{flex-basis:70%}}
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:9990;background:#1a0101f2;display:none;place-items:center;padding:30px}
+#lb.open{display:grid}
+#lb img{max-width:88vw;max-height:80vh;object-fit:contain;border:3px solid var(--apricot);border-radius:10px;box-shadow:12px 12px 0 var(--red);background:var(--dark)}
+#lb button{position:absolute;border:2px solid var(--dark);background:var(--apricot);color:var(--dark);width:50px;height:50px;border-radius:50%;font-size:1.7rem;display:grid;place-items:center;box-shadow:3px 3px 0 var(--dark)}
+#lb button:hover{background:var(--orange)}
+#lb .x{top:22px;right:22px}#lb .p{left:22px;top:50%;margin-top:-25px}#lb .n{right:22px;top:50%;margin-top:-25px}
+#lb-cap{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:var(--pale);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase}
+.image-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
+.image-grid .image-placeholder{margin:0;min-height:180px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.tags span{border:2px solid var(--apricot);border-radius:99px;color:var(--blush);padding:8px 15px;font-size:.72rem;letter-spacing:.05em;transition:.2s}
+.tags span:hover{background:var(--pink);color:var(--dark);transform:rotate(-3deg) scale(1.08)}
+footer{padding:34px 8%;border-top:1px solid #fbde9c30;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#f5ecd2a8;font-size:.75rem}
+footer strong{color:var(--pink);font-weight:500}
+
+/* Pixel avatar */
+.pixel{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+.bubble{background:var(--blush);color:var(--dark);font-family:Gaegu,cursive;font-weight:700;font-size:clamp(1rem,1.8vw,1.4rem);padding:8px 14px;border-radius:14px 14px 14px 2px;border:3px solid var(--dark);box-shadow:4px 4px 0 var(--red);display:inline-block;margin-bottom:14px;white-space:nowrap}
+.about-art canvas{width:min(150px,55%);height:auto;margin:0 auto 18px;animation:hop 2s steps(2,end) infinite}
+.about-art.photo canvas{animation:none;border:3px solid var(--dark)}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* Custom cursor (mouse devices only) */
+@media (hover:hover) and (pointer:fine){
+  html,body,#hero,button,a,.path-card,.back-button{cursor:none!important}
+  #cur{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;width:30px;height:27px;margin:-4px 0 0 -4px;will-change:transform;transition:scale .15s steps(3)}
+  #cur svg{width:100%;height:100%;display:block;filter:drop-shadow(2px 2px 0 var(--dark))}
+  #cur.big{scale:1.5}
+  #cur.big .heart{fill:var(--gold)}
+  .spark{position:fixed;z-index:9998;pointer-events:none;width:8px;height:8px;background:var(--pink);animation:spark .7s steps(5,end) forwards}
+  .spark.b{background:var(--lilac)}.spark.c{background:var(--gold)}
+  @keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+}
+@media (hover:none),(pointer:coarse){#cur{display:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-16px) rotate(3deg)}}
+@keyframes fall{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(-28vw,120vh) rotate(75deg);opacity:0}}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:800px){.about-grid,.detail-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.path-card{min-height:250px}.section-head{align-items:start;flex-direction:column}.about{padding:75px 7%}.section-wrap{padding:70px 7%}.detail-page{padding:55px 7% 75px}#sun{left:-15px;top:8%;width:160px}#icarus{right:-15px;bottom:8%;width:220px}#hero-title{font-size:clamp(3.4rem,17vw,7rem)}#hero-title span{letter-spacing:.2em;white-space:normal;font-size:.6rem}#hero-title span:before,#hero-title span:after{width:22px}nav{padding:16px 6%}.navlinks{gap:12px}.navlinks button{font-size:.7rem}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="hero" role="button" tabindex="0" aria-label="Enter Ishani's portfolio">
+  <img id="sun" src="sun.png" alt="">
+  <h1 id="hero-title" class="serif">Portfolio<span>Ideas, experiments &amp; things in progress</span></h1>
+  <img id="icarus" src="icarus.png" alt="Icarus">
+    <p id="hero-hint">Click anywhere to begin</p>
+</div>
+
+<div class="site" id="site">
+  <nav>
+    <a class="brand" href="#" onclick="showHome();return false;">Ishani.</a>
+    <div class="navlinks">
+      <button onclick="showHome()">About</button>
+      <button onclick="openPage('study')">Study Together</button>
+      <button onclick="openPage('freelance')">Freelancing</button>
+      <button onclick="openPage('social')">Social media</button>
+    </div>
+  </nav>
+
+  <main id="home">
+    <section class="about" id="about">
+      <div class="about-grid">
+        <div>
+          <p class="eyebrow">The person behind the projects</p>
+          <h2>Curious by nature.</h2>
+          <p>Hi, I'm Ishani — a second-year Mathematics student at the University of Delhi, a tutor, a creator, and someone who likes turning ideas into real things. I enjoy finding the logic behind how things work, making complicated ideas easier to understand, and learning by building.</p>
+          <p style="margin-top:15px">My work moves between technology, education, design, and communication. This portfolio is a snapshot of what I've explored so far — and what I'm still figuring out.</p>
+        </div>
+        <div class="about-art">
+          <div><div class="bubble">hi, i'm ishani!</div><canvas class="pixel" id="px-about" width="16" height="16"></canvas><strong>What good are wings without the courage to fly?</strong><span>— Atticus</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pathways section-wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">Explore my work</p><h2>Three sides<br>of my world.</h2></div>
+        <p>Pick a path to see what I've worked on, what I learned, and where I want to take it next.</p>
+      </div>
+      <div class="cards">
+        <button class="path-card" onclick="openPage('study')"><span class="card-sun"></span><span class="card-number">01 / BUILDING</span><h3>Study Together</h3><p>A small live study-room website built to make studying with friends feel more connected.</p><span class="card-open">Explore project ↗</span></button>
+        <button class="path-card" onclick="openPage('freelance')"><span class="card-sun"></span><span class="card-number">02 / TEACHING &amp; CLIENT WORK</span><h3>Freelancing</h3><p>Teaching mathematics and science, creating learning materials, and supporting creative projects.</p><span class="card-open">Explore my work ↗</span></button>
+        <button class="path-card" onclick="openPage('social')"><span class="card-sun"></span><span class="card-number">03 / COMMUNICATION</span><h3>Social Media &amp; Content</h3><p>Content, reels, posters, and campaign support through college societies and creative teams.</p><span class="card-open">Explore my work ↗</span></button>
+      </div>
+    </section>
+
+    <section class="section-wrap" style="padding-top:15px">
+      <p class="eyebrow">A few things I bring</p>
+      <div class="tags">
+        <span>Creative problem-solving</span><span>Mathematics</span><span>HTML / CSS / JavaScript</span><span>Supabase</span><span>Canva</span><span>Content creation</span><span>Teaching</span><span>Research &amp; coordination</span><span>Python</span><span>SQL</span><span>Excel</span>
+      </div>
+    </section>
+  </main>
+
+  <section class="detail-page" id="page-study">
+    <div class="detail-inner">
+      <button class="back-button" onclick="showHome()">← Back to portfolio</button>
+      <p class="eyebrow">01 / Independent project</p>
+      <h2>Study Together</h2>
+      <p class="detail-lead">A live study-room website I started building so friends can study together online. I wanted it to feel simple and welcoming: join a room, see who's around, and keep a shared sense of progress while everyone works.</p>
+      <div class="detail-grid">
+        <div class="detail-panel"><h3>What I built</h3><ul><li>Room-based study spaces for a small group.</li><li>Custom names and avatars, plus online presence.</li><li>Room chat and a shared lo-fi music concept.</li><li>Study-time tracking and a leaderboard concept.</li><li>A dark, welcoming intro screen and custom visual direction.</li></ul></div>
+        <div class="detail-panel"><h3>The process</h3><p>I connected the front end to Supabase and worked with its database and real-time features. While testing with another account, old test records remained in a table; I investigated the database and cleared the relevant records. That helped me understand why test data and shared state matter when building a live product.</p></div>
+      </div>
+      <div class="image-placeholder"><div><span>Image placeholder 01</span><strong>Add a screenshot of the Study Together home screen</strong><p style="margin-top:8px;font-size:.8rem">Suggested filename: study-together-home.png</p></div></div>
+      <div class="image-grid"><div class="image-placeholder"><div><span>Image placeholder 02</span><strong>Study room / chat</strong><p style="margin-top:8px;font-size:.8rem">study-room.png</p></div></div><div class="image-placeholder"><div><span>Image placeholder 03</span><strong>Database / real-time feature</strong><p style="margin-top:8px;font-size:.8rem">study-together-feature.png</p></div></div></div>
+      <div class="detail-grid">
+        <div class="detail-panel"><h3>Tools &amp; skills</h3><p>HTML, CSS, JavaScript, GitHub Pages, Supabase, database testing, debugging, and iterative product design.</p></div>
+        <div class="detail-panel"><h3>What I'm improving</h3><p>Making the timer and leaderboard stay in sync across devices, refining the real-time experience, and exploring room-only voice chat.</p></div>
+      </div>
+      <div class="tags"><span>Web development</span><span>Problem-solving</span><span>Database basics</span><span>Learning by building</span></div>
+    </div>
+  </section>
+
+  <section class="detail-page" id="page-freelance">
+    <div class="detail-inner">
+      <button class="back-button" onclick="showHome()">← Back to portfolio</button>
+      <p class="eyebrow">02 / Teaching &amp; creative work</p>
+      <h2>Freelancing</h2>
+      <div class="lead-row"><p class="detail-lead">My freelance work brings together teaching, communication, and making useful resources. I focus on meeting learners where they are, breaking difficult topics into smaller steps, and creating materials that make ideas easier to follow.</p><figure class="deco"><img src="freelancing-art.jpg" alt="Engraving of a figure carrying a sphere inside a golden-ratio spiral"></figure></div>
+      <div class="detail-grid">
+        <div class="detail-panel"><h3>Teaching</h3><ul><li>Mathematics and science support for school students across curricula including CBSE, ICSE, and IGCSE.</li><li>Basics-first explanations, worked examples, practice questions, and exam preparation.</li><li>Presentations, worksheets, and topic-focused learning materials.</li></ul></div>
+        <div class="detail-panel"><h3>Creative &amp; digital skills</h3><ul><li>Canva designs, posters, and presentation layouts.</li><li>Basic video editing and social content support.</li><li>Python, SQL, Excel, and beginner data-related work.</li><li>Turning a brief into clear, organised deliverables.</li></ul></div>
+      </div>
+      <div class="pdf-card"><header><div><span>PDF 01</span><strong>Teaching materials</strong></div><a href="teaching-materials.pdf" target="_blank" rel="noopener">Open PDF ↗</a></header><iframe src="teaching-materials.pdf#view=FitH" title="Teaching materials"></iframe></div>
+      <div class="pdf-grid"><div class="pdf-card"><header><div><span>PDF 02</span><strong>Worksheet / lesson slides</strong></div><a href="worksheet-preview.pdf" target="_blank" rel="noopener">Open PDF ↗</a></header><iframe src="worksheet-preview.pdf#view=FitH" title="Worksheet / lesson slides"></iframe></div><div class="pdf-card"><header><div><span>PDF 03</span><strong>Design / editing sample</strong></div><a href="creative-work.pdf" target="_blank" rel="noopener">Open PDF ↗</a></header><iframe src="creative-work.pdf#view=FitH" title="Design / editing sample"></iframe></div></div>
+      <div class="detail-grid">
+        <div class="detail-panel"><h3>My approach</h3><p>Be patient with the basics, explain the “why,” use examples, and make the final resource clear enough to use independently.</p></div>
+        <div class="detail-panel"><h3>What this has taught me</h3><p>How to communicate clearly, adapt to different needs, manage expectations, and make complex information feel approachable.</p></div>
+      </div>
+      <div class="tags"><span>Mathematics tutoring</span><span>Science tutoring</span><span>Worksheets</span><span>Presentations</span><span>Canva</span><span>Communication</span></div>
+    </div>
+  </section>
+
+  <section class="detail-page" id="page-social">
+    <div class="detail-inner">
+      <button class="back-button" onclick="showHome()">← Back to portfolio</button>
+      <p class="eyebrow">03 / Content &amp; college societies</p>
+      <h2>Social Media &amp; Content Creation</h2>
+      <div class="lead-row"><p class="detail-lead">Social Media Head, content creator and college fest Organising Committee member &mdash; creating posters, reels and visual content for college initiatives, and keeping the team&rsquo;s communication timely and consistent.</p><figure class="deco pinkart"><img src="content-art.jpg" alt="Create that content"></figure></div>
+      <div class="detail-grid">
+        <div class="detail-panel"><h3>Social Media Head</h3><p>Create posters, reels, and other visual content for college initiatives, manage social media content, and coordinate with team members to ensure timely and consistent communication.</p></div>
+        <div class="detail-panel"><h3>Content Creation &amp; Promotion</h3><p>Brainstorm creative ideas, design visuals using Canva, and support short-form video editing for social media.</p></div>
+        <div class="detail-panel"><h3>College Fest &ndash; Organising Committee (OC) Member</h3><p>Contributed to college fest activities by helping create promotional content and supporting event-related social media communication.</p></div>
+        <div class="detail-panel"><h3>Team Coordination</h3><p>Collaborate with team members to plan content, organise creative assets, and ensure smooth execution of social media tasks.</p></div>
+      </div>
+      <h3 class="gal-title">Posters <em>I made</em></h3>
+      <p class="gal-sub">Nine designs &middot; slide through &middot; tap one to open it</p>
+      <div class="slider"><button class="arr l" id="made-prev" aria-label="Previous">&#8249;</button><div class="track" id="made-track"></div><button class="arr r" id="made-next" aria-label="Next">&#8250;</button></div>
+      <div class="slider-dots" id="made-dots"></div>
+      <h3 class="gal-title">Posters <em>I contributed to</em></h3>
+      <p class="gal-sub">Team projects where I helped shape the design &middot; tap to open</p>
+      <div class="contrib" id="contrib-grid"></div>
+      <div class="detail-panel" style="margin-top:24px"><h3>Tools &amp; skills</h3><p>Canva, short-form video editing, content ideation, visual storytelling, social media coordination, teamwork, and event support.</p></div>
+      <div class="tags"><span>Content creation</span><span>Canva</span><span>Reels</span><span>Publicity</span><span>Team coordination</span><span>Event support</span></div>
+    </div>
+  </section>
+
+  <footer><span><strong>Ishani</strong> · Portfolio</span><span>Built with curiosity, one iteration at a time.</span></footer>
+</div>
+<div id="lb" role="dialog" aria-label="Poster viewer"><button class="x" aria-label="Close">&times;</button><button class="p" aria-label="Previous">&#8249;</button><img id="lb-img" alt=""><button class="n" aria-label="Next">&#8250;</button><div id="lb-cap"></div></div>
+<div id="cur" aria-hidden="true"><svg viewBox="0 0 10 9" shape-rendering="crispEdges"><path class="heart" fill="#E15E55" d="M1 0h3v1h1v-1h3v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z"/><path fill="#fff" d="M2 1h1v1h-1z"/></svg></div>
+<script>
+/* ---------- PIXEL ME ----------
+   Drop a photo called me.png next to this file and it becomes a pixelated
+   portrait (hover to un-pixelate). Without it you get the pixel character. */
+const PAL={h:'#562915',s:'#ffd2b0',p:'#c93631',r:'#c93631',e:'#270202',w:'#ffffff'};
+const GRID=[
+"................",
+".....hhhhhh.....",
+"...hhhhhhhhhh...",
+"..hhhhhhhhhhhh..",
+"..hhsssssssshh..",
+".hhsesssssseshh.",
+".hhssssssssssshh"
+,".hhsssssrrsssshh",
+".hh.ssssssss.hh.",
+".hh..ssssss..hh.",
+"..pppppppppppp..",
+".pppppppppppppp.",
+".pppppwppppppwpp",
+".pppppppppppppp.",
+".pppppppppppppp.",
+"..pppppppppppp.."].map(r=>r.padEnd(16,'.').slice(0,16));
+function drawChar(cv){const c=cv.getContext('2d');c.clearRect(0,0,16,16);
+  GRID.forEach((row,y)=>[...row].forEach((ch,x)=>{if(PAL[ch]){c.fillStyle=PAL[ch];c.fillRect(x,y,1,1);}}));}
+const photo=new Image();photo.src='me.png';
+photo.onload=()=>{
+  document.querySelector('.about-art').classList.add('photo');
+  ['px-about'].forEach(id=>{
+    const cv=document.getElementById(id);cv.width=cv.height=256;
+    const c=cv.getContext('2d');c.imageSmoothingEnabled=false;
+    const draw=n=>{const t=document.createElement('canvas');t.width=t.height=n;
+      const tc=t.getContext('2d');const m=Math.min(photo.width,photo.height);
+      tc.drawImage(photo,(photo.width-m)/2,(photo.height-m)/2,m,m,0,0,n,n);
+      c.clearRect(0,0,256,256);c.drawImage(t,0,0,256,256);};
+    draw(20);
+    if(id==='px-about'){cv.parentElement.parentElement.addEventListener('mouseenter',()=>draw(256));
+      cv.parentElement.parentElement.addEventListener('mouseleave',()=>draw(20));}
+  });
+};
+photo.onerror=()=>['px-about'].forEach(id=>drawChar(document.getElementById(id)));
+
+/* ---------- PIXEL HEART CURSOR + SPARKLE TRAIL ---------- */
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const cur=document.getElementById('cur');let last=0;
+  addEventListener('mousemove',e=>{
+    cur.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;
+    const now=performance.now();if(now-last<45)return;last=now;
+    const s=document.createElement('div');s.className='spark '+['','b','c'][Math.random()*3|0];
+    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+    s.style.setProperty('--dx',(Math.random()*30-15)+'px');s.style.setProperty('--dy',(Math.random()*30+5)+'px');
+    document.body.appendChild(s);setTimeout(()=>s.remove(),700);
+  });
+  document.addEventListener('mouseover',e=>cur.classList.toggle('big',!!e.target.closest('button,a,.path-card,#hero')));
+}
+
+const hero=document.getElementById('hero');
+const site=document.getElementById('site');
+let entered=false;
+function enterPortfolio(){
+  if(entered)return;
+  entered=true;
+  hero.classList.add('fall');
+  setTimeout(()=>{hero.classList.add('leave');site.classList.add('visible');document.body.style.overflowY='auto';},850);
+}
+hero.addEventListener('click',enterPortfolio);
+hero.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enterPortfolio();}});
+function openPage(name){
+  document.getElementById('home').style.display='none';
+  document.querySelectorAll('.detail-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showHome(){
+  document.querySelectorAll('.detail-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('home').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- POSTER GALLERIES ----------
+   Put these PNGs next to index.html (or change the names below). */
+const MADE=Array.from({length:9},(_,i)=>`made-${i+1}.png`);
+const CONTRIB=Array.from({length:3},(_,i)=>`contributed-${i+1}.png`);
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img'),lbCap=document.getElementById('lb-cap');
+let lbList=[],lbPos=0;
+function slideEl(file,n,group){
+  const b=document.createElement('button');b.className='slide';b.dataset.group=group;
+  b.innerHTML=`<span class="ph"><em>${String(n).padStart(2,'0')}</em>${file}</span>`;
+  const im=new Image();im.alt=`Poster ${n}`;
+  const base=file.replace(/\.png$/,''),exts=['png','jpg','jpeg','webp','PNG','JPG','JPEG','png.jpeg','png.jpg','png.png'];let k=0;
+  im.onload=()=>b.classList.add('ok');
+  im.onerror=()=>{k++;if(k<exts.length)im.src=`${base}.${exts[k]}`;else im.remove();};
+  im.src=`${base}.${exts[0]}`;b.appendChild(im);
+  b.onclick=()=>{if(!b.classList.contains('ok'))return;
+    lbList=[...document.querySelectorAll(`.slide[data-group="${group}"].ok`)].map(x=>x.querySelector('img').src);
+    lbPos=lbList.indexOf(im.src);showLb();};
+  return b;
+}
+function showLb(){lbImg.src=lbList[lbPos];lbCap.textContent=`${lbPos+1} / ${lbList.length}`;lb.classList.add('open');}
+function stepLb(d){lbPos=(lbPos+d+lbList.length)%lbList.length;showLb();}
+lb.querySelector('.x').onclick=()=>lb.classList.remove('open');
+lb.querySelector('.p').onclick=e=>{e.stopPropagation();stepLb(-1)};
+lb.querySelector('.n').onclick=e=>{e.stopPropagation();stepLb(1)};
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')stepLb(-1);if(e.key==='ArrowRight')stepLb(1);});
+const track=document.getElementById('made-track'),dots=document.getElementById('made-dots');
+MADE.forEach((f,i)=>{track.appendChild(slideEl(f,i+1,'made'));dots.appendChild(document.createElement('i'));});
+CONTRIB.forEach((f,i)=>document.getElementById('contrib-grid').appendChild(slideEl(f,i+1,'contrib')));
+const step=()=>{const s=track.querySelector('.slide');return s.offsetWidth+14;};
+document.getElementById('made-prev').onclick=()=>track.scrollBy({left:-step()});
+document.getElementById('made-next').onclick=()=>{
+  if(track.scrollLeft+track.clientWidth>=track.scrollWidth-4)track.scrollTo({left:0});else track.scrollBy({left:step()});};
+const setDots=()=>{const i=Math.round(track.scrollLeft/step());[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===Math.min(i,MADE.length-1)));};
+track.addEventListener('scroll',setDots);setDots();
+let auto=setInterval(()=>{if(track.offsetParent&&!lb.classList.contains('open'))document.getElementById('made-next').click();},3800);
+['mouseenter','touchstart'].forEach(ev=>track.parentElement.addEventListener(ev,()=>clearInterval(auto),{passive:true}));
+
+/* ---------- PROJECT SCREENSHOTS ----------
+   Any placeholder that mentions a file name (e.g. study-together-home.png) turns into
+   that image as soon as the file is next to index.html, whatever its real extension. */
+document.querySelectorAll('.image-placeholder').forEach(ph=>{
+  const m=((ph.querySelector('p')||ph).textContent).match(/([\w-]+)\.png\s*$/);if(!m)return;
+  const b0=m[1],exts=['png','jpg','jpeg','webp','PNG','JPG','JPEG','png.png','png.jpeg','png.jpg'];
+  const tries=[];[b0,b0.replace(/-/g,'_'),b0.replace(/-/g,' '),b0.replace(/-/g,'')].forEach(n=>exts.forEach(e=>tries.push(`${n}.${e}`)));let k=0;
+  const im=new Image();im.alt=b0;
+  im.onload=()=>{ph.classList.add('has-img');ph.innerHTML='';ph.appendChild(im);
+    ph.onclick=()=>{lbList=[im.src];lbPos=0;showLb();};};
+  im.onerror=()=>{k++;if(k<tries.length)im.src=encodeURI(tries[k]);};
+  im.src=encodeURI(tries[0]);
+});
+</script>
+</body>
+</html>
